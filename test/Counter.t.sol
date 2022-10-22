@@ -2,22 +2,18 @@
 pragma solidity ^0.8.13;
 
 import "forge-std/Test.sol";
-import "../src/Counter.sol";
+// import "../src/Counter.sol";
+import "../src/ERC721.sol";
 
 contract CounterTest is Test {
-    Counter public counter;
-    function setUp() public {
-       counter = new Counter();
-       counter.setNumber(0);
-    }
+    ERC721 erc721;
+    address bob = address(0x1);
+    address mary = address(0x2);
 
-    function testIncrement() public {
-        counter.increment();
-        assertEq(counter.number(), 1);
-    }
-
-    function testSetNumber(uint256 x) public {
-        counter.setNumber(x);
-        assertEq(counter.number(), x);
+    function testMintToken() public {
+      erc721 = new ERC721();
+      erc721.mint(bob, 0);
+      address owner_of = erc721.owner_of(0);
+      assertEq(bob, owner_of);
     }
 }
